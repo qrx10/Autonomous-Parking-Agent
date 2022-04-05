@@ -194,7 +194,7 @@ def callback(data):
 	global model
 	global sess1
 	global graph1
-	if count%3==0:
+	if count%4==0:
 		bridge = CvBridge()
 		cv_image = bridge.imgmsg_to_cv2(data,desired_encoding='bgr8')
 		shape = cv_image.shape
