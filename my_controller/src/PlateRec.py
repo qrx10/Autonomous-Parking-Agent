@@ -112,22 +112,22 @@ def callback(data):
 			image.append(plate_image[1320:height,45:145])
 			cv2.imshow("1", plate_image[1320:height,45:145])
 			cv2.waitKey(1)
-			cv2.imwrite("/home/fizzer/ros_ws/Data/g"+str(count)+".png",plate_image[1320:height,45:145])
+			#cv2.imwrite("/home/fizzer/ros_ws/Data/RE"+str(count)+".png",plate_image[1320:height,45:145])
 			count = count + 1
-			image.append(plate_image[1320:height,145:245])
-			cv2.imshow("2", plate_image[1320:height,145:245])
+			image.append(plate_image[1320:height,147:247])
+			cv2.imshow("2", plate_image[1320:height,147:247])
 			cv2.waitKey(1)
-			cv2.imwrite("/home/fizzer/ros_ws/Data/g"+str(count)+".png",plate_image[1320:height,145:245])
+			#cv2.imwrite("/home/fizzer/ros_ws/Data/RE"+str(count)+".png",plate_image[1320:height,145:245])
 			count = count + 1
 			image.append(plate_image[1320:height,345:445])
 			cv2.imshow("3", plate_image[1320:height,345:445])
 			cv2.waitKey(1)
-			cv2.imwrite("/home/fizzer/ros_ws/Data/g"+str(count)+".png",plate_image[1320:height,345:445])
+			#cv2.imwrite("/home/fizzer/ros_ws/Data/RE"+str(count)+".png",plate_image[1320:height,345:445])
 			count = count + 1
 			image.append(plate_image[1320:height,445:545])
 			cv2.imshow("4", plate_image[1320:height,445:545])
 			cv2.waitKey(1)
-			cv2.imwrite("/home/fizzer/ros_ws/Data/g"+str(count)+".png",plate_image[1320:height,445:545])
+			#cv2.imwrite("/home/fizzer/ros_ws/Data/RE"+str(count)+".png",plate_image[1320:height,445:545])
 			count = count + 1
 			plnum = ""
 			y_predict = None
@@ -141,7 +141,7 @@ def callback(data):
 				max_index = np.where(y_predict == np.amax(y_predict))
 				caption = str(class_names[get_num(str(max_index))])
 				plnum = plnum+caption
-			if plate_vertex[0][0]>3 and plate_vertex[1][0]<shape[1]-3:
+			if plate_vertex[0][0]>25 and plate_vertex[1][0]<shape[1]-5:
 				print(plnum)
 				rospy.loginfo(plnum)
 				PlatePub.publish(plnum)
@@ -167,7 +167,7 @@ def callback(data):
 			#print(max_index)
 			location = str(loc_names[get_num(str(max_index))])
 			print(location)
-			if plate_vertex[0][0]>3 and plate_vertex[1][0]<shape[1]-3:
+			if plate_vertex[0][0]>25 and plate_vertex[1][0]<shape[1]-5:
 				rospy.loginfo(location)
 				LocationPub.publish(location)
 
@@ -193,7 +193,7 @@ set_session(sess1)
 
 #init = tf.global_variables_initializer()
 #sess1.run(init)
-conv_model = load_model("/home/fizzer/ros_ws/src/PlateRec_end.h5")
+conv_model = load_model("/home/fizzer/ros_ws/src/PlateRec_end_final_hope.h5")
 Loc_model = load_model("/home/fizzer/ros_ws/src/LocNum.h5")
 rospy.init_node('topic_subscriber', anonymous=True)
 #pub = rospy.Publisher('/R1/cmd_vel',Twist,queue_size=1)
