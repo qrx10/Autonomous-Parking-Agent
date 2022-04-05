@@ -1,0 +1,17 @@
+<launch>
+<node pkg="my_controller"
+      type="PID_controller.py"
+      name="PID_controller"
+      output="screen">
+</node>
+<node pkg="my_controller"
+      type="PlateRec.py"
+      name="PlateRec"
+      output="screen">
+</node>
+<node pkg="my_controller"
+      type="ObjectDetector.py"
+      name="ObjectDetector"
+      output="screen">
+</node>
+</launch>
