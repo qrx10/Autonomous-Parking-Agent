@@ -11,7 +11,7 @@ Model files can be found through https://drive.google.com/drive/folders/1X8v2bSv
 | Library    | Version  |
 |------------|----------|
 | tensorflow | 1.14.0   |
-| keras      | 2.3.1    |
+| Keras      | 2.3.1    |
 | numpy      | 1.16.6   |
 | opencv     | 3.4.2.17 |
 | Pillow     | 6.2.2    |
