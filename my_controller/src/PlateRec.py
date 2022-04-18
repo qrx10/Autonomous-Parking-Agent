@@ -38,8 +38,8 @@ def callback(data):
 	cv_image = bridge.imgmsg_to_cv2(data,desired_encoding='bgr8')
 	shape = cv_image.shape
 
-	gray_image = cv2.cvtColor(cv_image,cv2.COLOR_BGR2GRAY)
-	gray_image = cv2.GaussianBlur(gray_image,(3,3),0)
+	gray_image_unblured = cv2.cvtColor(cv_image,cv2.COLOR_BGR2GRAY)
+	gray_image = cv2.GaussianBlur(gray_image_unblured,(3,3),0)
 	
 	thresh1_H = cv2.threshold(gray_image,105,255,cv2.THRESH_BINARY)
 	thresh1_L = cv2.threshold(gray_image,100,255,cv2.THRESH_BINARY_INV)
@@ -75,7 +75,7 @@ def callback(data):
 		# print(len(approx))
 		# print(cv2.contourArea(approx))
 		#print(len(approx))
-		if(len(approx)==4 and cv2.contourArea(approx)>12000):
+		if(len(approx)==4 and cv2.contourArea(approx)>11000):
 			# cv2.polylines(cv_image,[approx],1,(255,255,0),3)
 			# cv2.imshow("plate",cv_image)
 			# cv2.waitKey(1)
@@ -102,15 +102,15 @@ def callback(data):
 			# 	cv2.circle(cv_image,(val[0],val[1]),5,(0,255,0),-1)
 			
 			Matrix = cv2.getPerspectiveTransform(plate_vertex,plate_sample)
-			plate_image = cv2.warpPerspective(gray_image,Matrix,(600,1800))
+			plate_image = cv2.warpPerspective(gray_image_unblured,Matrix,(600,1800))
 
 			# cv2.imshow("image",plate_image)
 			# cv2.waitKey(1)
 			image = []
 			image[:]=[]
 			height = 1560
-			image.append(plate_image[1320:height,45:145])
-			cv2.imshow("1", plate_image[1320:height,45:145])
+			image.append(plate_image[1320:height,40:140])
+			cv2.imshow("1", plate_image[1320:height,40:140])
 			cv2.waitKey(1)
 			#cv2.imwrite("/home/fizzer/ros_ws/Data/RE"+str(count)+".png",plate_image[1320:height,45:145])
 			count = count + 1
@@ -141,15 +141,15 @@ def callback(data):
 				max_index = np.where(y_predict == np.amax(y_predict))
 				caption = str(class_names[get_num(str(max_index))])
 				plnum = plnum+caption
-			if plate_vertex[0][0]>25 and plate_vertex[1][0]<shape[1]-5:
-				print(plnum)
-				rospy.loginfo(plnum)
-				PlatePub.publish(plnum)
+			# if plate_vertex[0][0]>32 and plate_vertex[1][0]<shape[1]-3:
+			# 	#print(plnum)
+			# 	rospy.loginfo(plnum)
+			# 	PlatePub.publish(plnum)
 
 
-			last_last_plnum = last_plnum
-			last_plnum = plnum
-			plnum = " "
+			# last_last_plnum = last_plnum
+			# last_plnum = plnum
+			# plnum = " "
 			image[:] = [0]
 
 			locationIm = plate_image[700:1100,300:600]
@@ -166,10 +166,10 @@ def callback(data):
 			max_index = np.where(LocNum_predict == np.amax(LocNum_predict))
 			#print(max_index)
 			location = str(loc_names[get_num(str(max_index))])
-			print(location)
-			if plate_vertex[0][0]>25 and plate_vertex[1][0]<shape[1]-5:
-				rospy.loginfo(location)
-				LocationPub.publish(location)
+			#print(location)
+			if plate_vertex[0][0]>40 and plate_vertex[1][0]<shape[1]-3:
+				rospy.loginfo(location+","+plnum)
+				PlateLocationPub.publish(location+","+plnum)
 
 		break
 
@@ -197,8 +197,8 @@ conv_model = load_model("/home/fizzer/ros_ws/src/PlateRec_end_final_hope.h5")
 Loc_model = load_model("/home/fizzer/ros_ws/src/LocNum.h5")
 rospy.init_node('topic_subscriber', anonymous=True)
 #pub = rospy.Publisher('/R1/cmd_vel',Twist,queue_size=1)
-PlatePub = rospy.Publisher('/PlateNumber', String, queue_size=10)
-LocationPub = rospy.Publisher('LocationNumber',String, queue_size=10)
+#PlatePub = rospy.Publisher('/PlateNumber', String, queue_size=10)
+PlateLocationPub = rospy.Publisher('PlateLocationNumber',String, queue_size=10)
 sub = rospy.Subscriber("/R1/pi_camera/image_raw", Image, callback, queue_size=1)
 rospy.spin()
 
