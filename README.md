@@ -1,4 +1,5 @@
-# README
+# PayByRobot
+An autonomous agent that drives through the environment while obeying traffic laws and returns license plates and associated parking IDs
 ## Run:
 1.  Install required libraries
 2.  Git the competition folder from https://github.com/ENPH353/2020_competition.git
