@@ -21,7 +21,7 @@ Model files can be found through https://drive.google.com/drive/folders/1X8v2bSv
 | matplotlib | 2.2.5    |
 | cv-bridge  | 1.13.0   |
 ## Video Demo:
-
+Use Google Chrome to watch the video
 
 
 
