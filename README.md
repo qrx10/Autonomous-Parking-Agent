@@ -1,6 +1,11 @@
 # README
+## Run:
+1.  Install required libraries
+2.  Git the competition folder from https://github.com/ENPH353/2020_competition.git
+3.  Download all model files and put them in correct folders
+4.  Download this repository and put the folder "my_controller" in /home/fizzer/ros_ws/src/
 ## Models:
-Model files can be found through https://drive.google.com/drive/folders/1X8v2bSvoDDYY809-VBsHkoUHUza3zjp3?usp=sharing and put the model files in /home/fizzer/ros_ws/src
+Model files can be found through https://drive.google.com/drive/folders/1X8v2bSvoDDYY809-VBsHkoUHUza3zjp3?usp=sharing and put the model files in /home/fizzer/ros_ws/src/
 ## Required Libraries:
 | Library    | Version  |
 |------------|----------|
